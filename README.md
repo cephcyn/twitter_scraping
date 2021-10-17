@@ -9,7 +9,8 @@ The `scrape.py` script collects tweet ids. If you know a tweet's id number, you 
 ## Requirements
 
 - basic knowledge on how to use a terminal
-- Safari 10+ with 'Allow Remote Automation' option enabled in Safari's Develop menu to control Safari via WebDriver.
+- ~~Safari 10+ with 'Allow Remote Automation' option enabled in Safari's Develop menu to control Safari via WebDriver.~~ This script has been modified to use Firefox by default instead of Safari
+- Mozilla Firefox and geckodriver, hosted here: [https://github.com/mozilla/geckodriver/releases](https://github.com/mozilla/geckodriver/releases)
 - conda (miniconda or anaconda)
   - to check: in your terminal, enter `conda`
   - if you don't have it, check online for installation instructions
@@ -27,14 +28,24 @@ The `scrape.py` script collects tweet ids. If you know a tweet's id number, you 
   - install the `twitter_scraping` conda environment from `environment.yml`
     - `conda env create -f environment.yml`
 - tell the script which settings to use while scraping
-  - open up `scrape.py` and edit the user, start, and end variables (and save the file)
+  - open up `scrape.py` and search for the word "settings" in that file
+  - feel free to edit whichever adjustable settings you find that way
+  - Don't forget to save the file after you edit!
+- update `input.csv` with the usernames you want to scrape and the IDs you want them to be mapped to in the final merged output
 - run `./run.sh`
   - you may see some output in the terminal
-  - you may also see a browser pop up, don't close it!
+  - you may also see a browser process start in the background without any window popping up to match, don't close it!
 - do some fun other task until it finishes!
-- once it's done, it outputs all the tweet ids it found into `all_ids.json`
-- every time you run the scraper with different dates, it will add the new ids to the same file
-  - it automatically removes duplicates so don't worry about small date overlaps
+- once it's done, it outputs all the tweet ids for each `[username]` in the input file that it found into `ids/all_ids_[username].json`
+  - every time you run the scraper with different dates, it will add the new IDs to the same file
+  - It automatically removes duplicates, so don't worry about date overlaps
+- the scraper will also collect metadata for every tweet id in `id/all_ids_[username].json` and output them to a different set of files...
+  - `data/[username].json` is a master file with all metadata for all tweet IDs collected so far for that user
+  - `data/[username].zip` is a zipped/compressed version of that master file
+  - `data/[username]_short.json` is a smaller file with "relevant" metadata fields, as identified in `scrape.py`
+  - `data/[username].csv` is a CSV version of the "relevant" field smaller file
+- it will also create 1 final merged file containing every single tweet and its associated "relevant" fields scraped from the entire set of users:
+  - `merged_data.csv`
 
 ## Troubleshooting the scraper
 

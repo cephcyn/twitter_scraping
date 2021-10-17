@@ -7,5 +7,5 @@ conda activate twitter_scraping
 export PATH="./:$PATH"
 
 # run the scraper script
-python3 scrape.py
+python3 scrape.py > logs/log.txt
 
