@@ -1,0 +1,9 @@
+name: twitter_scraping
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.7.9
+  - selenium=3.141.0
+  - tweepy=3.9.0
+

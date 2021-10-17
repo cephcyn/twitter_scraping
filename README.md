@@ -10,23 +10,28 @@ The `scrape.py` script collects tweet ids. If you know a tweet's id number, you 
 
 - basic knowledge on how to use a terminal
 - Safari 10+ with 'Allow Remote Automation' option enabled in Safari's Develop menu to control Safari via WebDriver.
-- python3
-  - to check, in your terminal, enter `python3`
-  - if you don't have it, check YouTube for installation instructions
-- pip or pip3
-  - to check, in your terminal, enter `pip` or `pip3`
-  - if you don't have it, again, check YouTube for installation instructions
-- selenium (3.0.1)
-  - `pip3 install selenium`
-- tweepy (3.5.0)
-  - `pip3 install tweepy`
+- conda (miniconda or anaconda)
+  - to check: in your terminal, enter `conda`
+  - if you don't have it, check online for installation instructions
 
 ## Running the scraper
 
-- open up `scrape.py` and edit the user, start, and end variables (and save the file)
-- run `python3 scrape.py`
-- you'll see a browser pop up and output in the terminal
-- do some fun other task until it finishes
+- first you'll need to get twitter API keys
+  - sign up for a developer account here: [https://dev.twitter.com/](https://dev.twitter.com/)
+  - get your keys here: [https://apps.twitter.com/](https://apps.twitter.com/)
+- put your twitter API keys into a place where the scripts can use them
+  - make a copy of the `sample_api_keys.json` file named `api_keys.json`
+    - `cp sample_api_keys.json api_keys.json`
+  - put your twitter API keys into the new `api_keys.json` file
+- set up your python (conda) environment
+  - install the `twitter_scraping` conda environment from `environment.yml`
+    - `conda env create -f environment.yml`
+- tell the script which settings to use while scraping
+  - open up `scrape.py` and edit the user, start, and end variables (and save the file)
+- run `./run.sh`
+  - you may see some output in the terminal
+  - you may also see a browser pop up, don't close it!
+- do some fun other task until it finishes!
 - once it's done, it outputs all the tweet ids it found into `all_ids.json`
 - every time you run the scraper with different dates, it will add the new ids to the same file
   - it automatically removes duplicates so don't worry about small date overlaps
@@ -38,15 +43,10 @@ The `scrape.py` script collects tweet ids. If you know a tweet's id number, you 
   - open `scrape.py` and change the driver to use Chrome() or Firefox()
     - if neither work, google the error (you probably need to install a new driver)
 - does it seem like it's not collecting tweets for days that have tweets?
-  - open `scrape.py` and change the delay variable to 2 or 3
+  - open `scrape.py` and change the delay variable to 2 or 3 (or more)
 
 ## Getting the metadata
 
-- first you'll need to get twitter API keys
-  - sign up for a developer account here https://dev.twitter.com/
-  - get your keys here: https://apps.twitter.com/
-- put your keys into the `sample_api_keys.json` file
-- change the name of `sample_api_keys.json` to `api_keys.json`
 - open up `get_metadata.py` and edit the user variable (and save the file)
 - run `python3 get_metadata.py`
 - this will get metadata for every tweet id in `all_ids.json`
